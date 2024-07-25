@@ -82,9 +82,8 @@ trait HandlesCustomPropertiesTrait
             // If we are dealing with nested resources or multiple panels, custom property fields are prefixed.
             $key = str_replace($collection, '__media-custom-properties__.'.$collection, $requestAttribute);
             $targetAttribute = "custom_properties->{$field->attribute}";
-            $requestAttribute = "{$key}.{$index}.{$field->attribute}";
 
-            $field->fillInto($request, $media, $targetAttribute, $requestAttribute);
+            $field->fillInto($request, $media, $targetAttribute, "{$key}.{$index}.{$field->attribute}");
         }
 
         $media->save();
