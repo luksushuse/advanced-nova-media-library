@@ -20,8 +20,9 @@
           />
 
           <CustomProperties
-            v-if="customPropertiesImageIndex !== null"
+            v-if="customPropertiesImageIndex === index"
             v-model="images[customPropertiesImageIndex]"
+            :key="`custom-properties-${index}`"
             :fields="customPropertiesFields"
             @close="customPropertiesImageIndex = null"
           />
