@@ -17,8 +17,14 @@
                 @submit.prevent="handleUpdate"
                 autocomplete="off"
             >
-                <div v-for="field in fields" :key="field.attribute" class="action">
-                    <component :is="'form-' + field.component" :field="field"/>
+                <div v-for="(field, index) in fields" :key="field.attribute" class="action">
+                    <component
+                        :key="index"
+                        :index="index"
+                        :is="`form-${field.component}`"
+                        :field="field"
+                        :show-help-text="true"
+                    />
                 </div>
 
                 <div class="bg-30 px-6 py-3 flex">

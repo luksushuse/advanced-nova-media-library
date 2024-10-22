@@ -3,6 +3,7 @@
 namespace Ebess\AdvancedNovaMediaLibrary\Fields;
 
 use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Fields\FieldCollection;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -21,7 +22,12 @@ trait HandlesCustomPropertiesTrait
     {
         $this->customPropertiesFields = collect($customPropertiesFields);
 
-        return $this->withMeta(compact('customPropertiesFields'));
+        // The fields should run through the specialized collection, so that any callbacks can be run.
+        $collection = FieldCollection::make(array_values($customPropertiesFields));
+
+        return $this->withMeta([
+            'customPropertiesFields' => $collection->resolve($this->resource),
+        ]);
     }
 
     public function customProperties(array $customProperties): self
@@ -82,8 +88,9 @@ trait HandlesCustomPropertiesTrait
             // If we are dealing with nested resources or multiple panels, custom property fields are prefixed.
             $key = str_replace($collection, '__media-custom-properties__.'.$collection, $requestAttribute);
             $targetAttribute = "custom_properties->{$field->attribute}";
+            $inputAttribute = "{$key}.{$index}.{$field->attribute}";
 
-            $field->fillInto($request, $media, $targetAttribute, "{$key}.{$index}.{$field->attribute}");
+            $field->fillInto($request, $media, $targetAttribute, $inputAttribute);
         }
 
         $media->save();
