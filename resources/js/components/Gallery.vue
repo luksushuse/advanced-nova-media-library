@@ -48,7 +48,7 @@
       {{ field.helpText }}
     </help-text>
 
-    <p v-if="hasError" class="my-2 text-danger">
+    <p v-if="hasError" class="mt-6 help-text-error">
       {{ firstError }}
     </p>
   </div>
