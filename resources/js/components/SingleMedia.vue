@@ -17,7 +17,7 @@
         <scissors-icon brand="var(--colors-black)" view-box="0 0 20 20" width="16" height="16"/>
       </a>
     </div>
-    <img :src="src" :alt="image.name" ref="image" class="gallery-image">
+    <img :src="src" :alt="image.name" ref="image" class="gallery-image" crossorigin="anonymous">
     <div v-if="field.showStatistics" class="statistics my-1">
       <div v-if="size" class="size"><strong>{{ size }}</strong></div>
       <div class="dimensions"><strong>{{ width }}×{{ height }}</strong> px</div>

@@ -3,7 +3,7 @@
        style="width: 200px;"
        @click.prevent="$emit('select')">
     <div class="overflow-hidden relative">
-      <img v-if="'__media_urls__' in item && 'indexView' in item.__media_urls__" :src="item.__media_urls__.indexView" class="block w-full" style="height: 200px; object-fit: contain;"/>
+      <img v-if="'__media_urls__' in item && 'indexView' in item.__media_urls__" :src="item.__media_urls__.indexView" class="block w-full" style="height: 200px; object-fit: contain;" crossorigin="anonymous"/>
       <div class="absolute top-0 right-0 mt-3 mr-3 hidden group-hover:block">
         <DefaultButton type="button">{{ __('Select') }}</DefaultButton>
       </div>

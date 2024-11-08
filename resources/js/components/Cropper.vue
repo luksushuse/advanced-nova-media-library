@@ -7,6 +7,7 @@
             ref="clipper"
             :stencil-props="configs || {}"
             :src="imageUrl"
+            :checkCrossOrigin="false"
           />
         </div>
         <div class="bg-30 px-6 py-3 footer rounded-lg">
