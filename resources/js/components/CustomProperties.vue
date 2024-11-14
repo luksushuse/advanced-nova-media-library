@@ -52,6 +52,12 @@ export default {
 
     handleUpdate(formData) {
       for (let [property, value] of formData.entries()) {
+        const field = this.fields.find(field => field.attribute === property.replace(/\./g, '->'));
+
+        if (field.component === 'boolean-field') {
+          value = value == 1 ? true : false;
+        }
+
         this.setProperty(property, value)
       }
 
@@ -70,4 +76,3 @@ export default {
   }
 }
 </script>
-
