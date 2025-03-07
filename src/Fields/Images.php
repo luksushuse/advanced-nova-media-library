@@ -49,10 +49,4 @@ class Images extends Media
     {
         return $this->withMeta(['mustCrop' => $mustCrop]);
     }
-
-    public function allowPdf(): self
-    {
-        $this->defaultValidatorRules = [];
-        return $this;
-    }
 }
