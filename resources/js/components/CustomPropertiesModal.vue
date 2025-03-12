@@ -1,16 +1,17 @@
 <template>
     <Modal
-      :show="true"
-      maxWidth="2xl"
-      @modal-close="handleClose"
-          :classWhitelist="[
+        :show="true"
+        maxWidth="2xl"
+        @modal-close="handleClose"
+        :classWhitelist="[
             'flatpickr-current-month',
             'flatpickr-next-month',
             'flatpickr-prev-month',
             'flatpickr-weekday',
             'flatpickr-weekdays',
             'flatpickr-calendar',
-            ]"
+        ]"
+        @click.self="handleOutsideClick"
      >
         <card class="overflow-hidden">
             <form class="rounded-lg shadow-lg overflow-hidden w-action-fields"
@@ -62,6 +63,10 @@
             this.fields.forEach(field => field.fill(formData))
 
             this.$emit('update', formData)
+        },
+
+        handleOutsideClick () {
+            this.handleClose()
         }
     }
   }
