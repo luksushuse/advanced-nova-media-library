@@ -1,5 +1,5 @@
 <template>
-  <gallery-item class="gallery-item-image" :class="{ 'show-statistics': field.showStatistics }">
+  <gallery-item class="gallery-item-image" :class="{ 'show-statistics': field.showStatistics }" v-bind:style="(isSocial)?'background-color:#48fa87':''">
     <div class="gallery-item-info p-3">
       <a v-if="downloadUrl" class="icon download" :href="downloadUrl" title="Download">
         <Icon type="download" view-box="0 0 20 22" width="16" height="16"/>
@@ -22,6 +22,7 @@
       <div v-if="size" class="size"><strong>{{ size }}</strong></div>
       <div class="dimensions"><strong>{{ width }}×{{ height }}</strong> px</div>
       <div class="ratio"> <strong>{{ aspectRatio }}</strong> (<i>{{ ratio }}</i>)</div>
+      <div v-if="isSocial"><strong>Social Media</strong></div>
     </div>
     <div v-if="field.showStatistics" class="type my-1">
       {{ mimeType }}
@@ -47,6 +48,7 @@
       aspectRatio: undefined,
       ratio: undefined,
       size: undefined,
+      isSocial: false,
     }),
     computed: {
       downloadUrl() {
@@ -118,6 +120,7 @@
           this.width = this.$refs.image.naturalWidth;
           this.height = this.$refs.image.naturalHeight;
           this.ratio = Math.round((this.width / this.height) * 100) / 100;
+          this.isSocial = this.image.custom_properties.is_for_social_media;
 
           const gcd = this.gcd(this.width, this.height);
           this.aspectRatio = (this.width / gcd) + ':' + (this.height / gcd);
