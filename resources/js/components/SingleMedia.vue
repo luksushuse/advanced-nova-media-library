@@ -22,6 +22,7 @@
       <div v-if="size" class="size"><strong>{{ size }}</strong></div>
       <div class="dimensions"><strong>{{ width }}×{{ height }}</strong> px</div>
       <div class="ratio"> <strong>{{ aspectRatio }}</strong> (<i>{{ ratio }}</i>)</div>
+      <div><strong>{{ category }}</strong></div>
       <div v-if="isSocial"><strong>Social Media</strong></div>
     </div>
     <div v-if="field.showStatistics" class="type my-1">
@@ -49,6 +50,27 @@
       ratio: undefined,
       size: undefined,
       isSocial: false,
+      categoryOptions: {
+        1: 'Køkken',
+        2: 'Opholdsrum',
+        3: 'Pool',
+        4: 'Spa',
+        5: 'Sauna',
+        6: 'Bad/Toilet',
+        7: 'Soveværelse',
+        8: 'Hems',
+        9: 'Entré',
+        10: 'Aktivitetsrum',
+        11: 'Bar',
+        12: 'Ude - poolhus',
+        13: 'Ude - spahus',
+        14: 'Terrasse',
+        15: 'Ude-aktiviteter',
+        16: 'Diverse',
+        17: 'Stue',
+        18: 'Strand',
+        19: 'Omgivelser',
+      },
     }),
     computed: {
       downloadUrl() {
@@ -121,6 +143,7 @@
           this.height = this.$refs.image.naturalHeight;
           this.ratio = Math.round((this.width / this.height) * 100) / 100;
           this.isSocial = this.image.custom_properties.is_for_social_media;
+          this.category = this.categoryOptions[this.image.custom_properties.category] || 'Ukendt';
 
           const gcd = this.gcd(this.width, this.height);
           this.aspectRatio = (this.width / gcd) + ':' + (this.height / gcd);
