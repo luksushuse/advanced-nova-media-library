@@ -1,5 +1,5 @@
 <template>
-  <gallery-item class="gallery-item-image" :class="{ 'show-statistics': field.showStatistics }" v-bind:style="(isSocial)?'background-color:#48fa87':''">
+  <gallery-item class="gallery-item-image" :class="{ 'show-statistics': field.showStatistics }" v-bind:style="(isSocial)?'background-color:#fdf7a2':''">
     <div class="gallery-item-info p-3">
       <a v-if="downloadUrl" class="icon download" :href="downloadUrl" title="Download">
         <Icon type="download" view-box="0 0 20 22" width="16" height="16"/>
