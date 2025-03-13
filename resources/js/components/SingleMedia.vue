@@ -19,10 +19,10 @@
     </div>
     <img :src="src" :alt="image.name" ref="image" class="gallery-image" crossorigin="anonymous">
     <div v-if="field.showStatistics" class="statistics my-1">
-      <div v-if="size" class="size"><strong>{{ size }}</strong></div>
+      <<div v-if="size" v-bind:class="(isSocial)?'bg-white p-1 mb-1':''"><strong>{{ size }}</strong></div>
       <div class="dimensions"><strong>{{ width }}×{{ height }}</strong> px</div>
-      <div><strong>{{ category }}</strong></div>
-      <div v-if="isSocial"><strong>Social Media</strong></div>
+      <div class="border-t p-1 mt-1">{{ category }}</div>
+      <div class="" v-if="isSocial"><strong>Bruges til SoMe</strong></div>
     </div>
     <div v-if="field.showStatistics" class="type my-1">
       {{ mimeType }}
