@@ -140,7 +140,7 @@
           this.width = this.$refs.image.naturalWidth;
           this.height = this.$refs.image.naturalHeight;
           this.isSocial = this.image.custom_properties.is_for_social_media;
-          this.category = this.categoryOptions[this.image.custom_properties.category] || 'Ukendt';
+          this.category = this.categoryOptions[this.image.custom_properties.category] || this.__('Unknown');
 
           const gcd = this.gcd(this.width, this.height);
           this.aspectRatio = (this.width / gcd) + ':' + (this.height / gcd);
