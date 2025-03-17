@@ -1,5 +1,5 @@
 <template>
-  <gallery-item class="gallery-item-image" :class="{ 'show-statistics': field.showStatistics }">
+  <gallery-item class="gallery-item-image" :class="{ 'show-statistics': field.showStatistics }" v-bind:style="(isSocial)?'background-color:#fdf7a2':''">
     <div class="gallery-item-info p-3">
       <a v-if="downloadUrl" class="icon download" :href="downloadUrl" title="Download">
         <Icon type="download" view-box="0 0 20 22" width="16" height="16"/>
@@ -19,9 +19,10 @@
     </div>
     <img :src="src" :alt="image.name" ref="image" class="gallery-image" crossorigin="anonymous">
     <div v-if="field.showStatistics" class="statistics my-1">
-      <div v-if="size" class="size"><strong>{{ size }}</strong></div>
+      <<div v-if="size" v-bind:class="(isSocial)?'bg-white p-1 mb-1':''"><strong>{{ size }}</strong></div>
       <div class="dimensions"><strong>{{ width }}×{{ height }}</strong> px</div>
-      <div class="ratio"> <strong>{{ aspectRatio }}</strong> (<i>{{ ratio }}</i>)</div>
+      <div class="border-t p-1 mt-1">{{ category }}</div>
+      <div class="" v-if="isSocial"><strong>Bruges til SoMe</strong></div>
     </div>
     <div v-if="field.showStatistics" class="type my-1">
       {{ mimeType }}
@@ -45,8 +46,29 @@
       width: undefined,
       height: undefined,
       aspectRatio: undefined,
-      ratio: undefined,
       size: undefined,
+      isSocial: false,
+      categoryOptions: {
+        1: 'Køkken',
+        2: 'Opholdsrum',
+        3: 'Pool',
+        4: 'Spa',
+        5: 'Sauna',
+        6: 'Bad/Toilet',
+        7: 'Soveværelse',
+        8: 'Hems',
+        9: 'Entré',
+        10: 'Aktivitetsrum',
+        11: 'Bar',
+        12: 'Ude - poolhus',
+        13: 'Ude - spahus',
+        14: 'Terrasse',
+        15: 'Ude-aktiviteter',
+        16: 'Diverse',
+        17: 'Stue',
+        18: 'Strand',
+        19: 'Omgivelser',
+      },
     }),
     computed: {
       downloadUrl() {
@@ -117,7 +139,8 @@
         if (this.$refs.image.complete) {
           this.width = this.$refs.image.naturalWidth;
           this.height = this.$refs.image.naturalHeight;
-          this.ratio = Math.round((this.width / this.height) * 100) / 100;
+          this.isSocial = this.image.custom_properties.is_for_social_media;
+          this.category = this.categoryOptions[this.image.custom_properties.category] || this.__('Unknown');
 
           const gcd = this.gcd(this.width, this.height);
           this.aspectRatio = (this.width / gcd) + ':' + (this.height / gcd);
