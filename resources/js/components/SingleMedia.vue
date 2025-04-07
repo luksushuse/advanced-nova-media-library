@@ -1,10 +1,10 @@
 <template>
-  <gallery-item 
-    class="gallery-item-image" 
-    :class="{ 'show-statistics': field.showStatistics, 'demo-border': isDemo }" 
+  <gallery-item
+    class="gallery-item-image"
+    :class="{ 'show-statistics': field.showStatistics, 'demo-border': isDemo }"
     v-bind:style="(isSocial) ? 'background-color:#fdf7a2' : ''"
   >
-    <div class="gallery-item-info p-3">
+    <div class="gallery-item-info">
       <a v-if="downloadUrl" class="icon download" :href="downloadUrl" title="Download">
         <Icon type="download" view-box="0 0 20 22" width="16" height="16"/>
       </a>
@@ -22,14 +22,11 @@
       </a>
     </div>
     <img :src="src" :alt="image.name" ref="image" class="gallery-image" crossorigin="anonymous">
-    <div v-if="field.showStatistics" class="statistics my-1">
-      <div v-if="size" v-bind:class="(isSocial) ? 'bg-white p-1 mb-1' : ''"><strong>{{ size }}</strong></div>
-      <div class="dimensions"><strong>{{ width }}×{{ height }}</strong> px</div>
-      <div class="border-t p-1 mt-1">{{ category }}</div>
-      <div class="" v-if="isSocial"><strong>Bruges til SoMe</strong></div>
-    </div>
-    <div v-if="field.showStatistics" class="type my-1">
-      {{ mimeType }}
+    <div v-if="field.showStatistics" class="statistics">
+      <div class="mt-1" v-if="isDemo" style="color: #2a85c8;"><strong>{{ this.__('Demo') }}</strong></div>
+      <div class="mt-1" v-if="isSocial" style="color: #2a85c8;"><strong>{{ this.__('SoMe') }}</strong></div>
+      <div class="p-1" style="font-size: 0.88rem; color: black;">{{ category }}</div>
+      <div class="dimensions p-1"><strong>{{ width }}×{{ height }}</strong> px</div>
     </div>
   </gallery-item>
 </template>
@@ -207,6 +204,9 @@
     .gallery-item-image.gallery-item {
       width: $item-max-size;
       height: $item-max-size;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 0 !important;
 
       &:hover .gallery-item-info {
         display: flex;
@@ -257,6 +257,9 @@
         display: block;
         max-height: 100%;
         border-radius: $border-radius;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-bottom: auto;
       }
 
       .statistics,
