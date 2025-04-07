@@ -1,5 +1,9 @@
 <template>
-  <gallery-item class="gallery-item-image" :class="{ 'show-statistics': field.showStatistics }" v-bind:style="(isSocial)?'background-color:#fdf7a2':''">
+  <gallery-item 
+    class="gallery-item-image" 
+    :class="{ 'show-statistics': field.showStatistics, 'demo-border': isDemo }" 
+    v-bind:style="(isSocial) ? 'background-color:#fdf7a2' : ''"
+  >
     <div class="gallery-item-info p-3">
       <a v-if="downloadUrl" class="icon download" :href="downloadUrl" title="Download">
         <Icon type="download" view-box="0 0 20 22" width="16" height="16"/>
@@ -19,7 +23,7 @@
     </div>
     <img :src="src" :alt="image.name" ref="image" class="gallery-image" crossorigin="anonymous">
     <div v-if="field.showStatistics" class="statistics my-1">
-      <<div v-if="size" v-bind:class="(isSocial)?'bg-white p-1 mb-1':''"><strong>{{ size }}</strong></div>
+      <div v-if="size" v-bind:class="(isSocial) ? 'bg-white p-1 mb-1' : ''"><strong>{{ size }}</strong></div>
       <div class="dimensions"><strong>{{ width }}×{{ height }}</strong> px</div>
       <div class="border-t p-1 mt-1">{{ category }}</div>
       <div class="" v-if="isSocial"><strong>Bruges til SoMe</strong></div>
@@ -48,6 +52,7 @@
       aspectRatio: undefined,
       size: undefined,
       isSocial: false,
+      isDemo: false,
       categoryOptions: {
         1: 'Køkken',
         2: 'Opholdsrum',
@@ -140,6 +145,7 @@
           this.width = this.$refs.image.naturalWidth;
           this.height = this.$refs.image.naturalHeight;
           this.isSocial = this.image.custom_properties.is_for_social_media;
+          this.isDemo = this.image.custom_properties.is_demo;
           this.category = this.categoryOptions[this.image.custom_properties.category] || this.__('Unknown');
 
           const gcd = this.gcd(this.width, this.height);
@@ -210,6 +216,10 @@
         padding-top: 22px;
         padding-bottom: 43px;
         height: #{$item-max-size + 23px};
+      }
+
+      &.demo-border {
+        border: 2px solid red;
       }
 
       .gallery-item-info {
