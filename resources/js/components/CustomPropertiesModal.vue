@@ -20,13 +20,16 @@
             >
                 <div class="bg-gray-100 dark:bg-gray-700 px-6 py-3 flex border-b dark:border-gray-700">
                     <div class="flex items-center ml-auto">
-                        <button type="button" class="btn text-sm font-bold h-9 px-3 mr-3 btn-link rounded focus:ring ring-primary-200 dark:ring-gray-600 text-gray-400 hover:text-gray-300 active:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 dark:active:text-gray-600 dark:hover:bg-gray-800" @click.prevent="handleClose">
-                            {{__('Cancel')}}
-                        </button>
-
-                        <button type="submit" class="btn btn-default btn-primary shadow bg-primary-500 hover:bg-primary-400 text-white dark:text-gray-900 rounded bg-primary-500 hover:bg-primary-400 text-white dark:text-gray-900 p-2 px-4">
-                            {{__('Update')}}
-                        </button>
+                        <Button
+                          @click.prevent="handleClose"
+                          variant="link"
+                          :label="__('Cancel')"
+                        />
+                        <Button
+                          :label="__('Update')"
+                          variant="solid"
+                          @click.prevent="handleUpdate"
+                        />
                     </div>
                 </div>
                 <div v-for="(field, index) in fields" :key="field.attribute" class="action">
@@ -44,7 +47,12 @@
 </template>
 
 <script>
+  import { Button } from 'laravel-nova-ui'
+
   export default {
+    components: {
+      Button,
+    },
     props: {
         fields: {
             type: Array,
